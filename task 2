@@ -1,0 +1,102 @@
+<html>
+<head>
+    <title>Basic Calculator</title>
+    <style>
+        #calculator {
+            width: 300px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        button {
+            width: 70px;
+            height: 40px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <input type="text" id="display" disabled>
+        <button onclick="addToDisplay('7')">7</button>
+        <button onclick="addToDisplay('8')">8</button>
+        <button onclick="addToDisplay('9')">9</button>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="addToDisplay('4')">4</button>
+        <button onclick="addToDisplay('5')">5</button>
+        <button onclick="addToDisplay('6')">6</button>
+        <button onclick="addOperator('+')">+</button>
+        <button onclick="addToDisplay('1')">1</button>
+        <button onclick="addToDisplay('2')">2</button>
+        <button onclick="addToDisplay('3')">3</button>
+        <button onclick="addOperator('-')">-</button>
+        <button onclick="addToDisplay('0')">0</button>
+        <button onclick="addToDisplay('.')">.</button>
+        <button onclick="calculateResult()">=</button>
+        <button onclick="addOperator('')"></button>
+        <button onclick="addOperator('/')">/</button>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let firstOperand = '';
+        let operator = '';
+        let secondOperand = '';
+
+        function addToDisplay(value) {
+            if (operator === '') {
+                firstOperand += value;
+                display.value = firstOperand;
+            } else {
+                secondOperand += value;
+                display.value = secondOperand;
+            }
+        }
+
+        function addOperator(op) {
+            operator = op;
+        }
+
+        function clearDisplay() {
+            display.value = '';
+            firstOperand = '';
+            operator = '';
+            secondOperand = '';
+        }
+
+        function calculateResult() {
+            if (firstOperand !== '' && secondOperand !== '') {
+                let result;
+                switch (operator) {
+                    case '+':
+                        result = parseFloat(firstOperand) + parseFloat(secondOperand);
+                        break;
+                    case '-':
+                        result = parseFloat(firstOperand) - parseFloat(secondOperand);
+                        break;
+                    case '*':
+                        result = parseFloat(firstOperand) * parseFloat(secondOperand);
+                        break;
+                    case '/':
+                        if (secondOperand !== '0') {
+                            result = parseFloat(firstOperand) / parseFloat(secondOperand);
+                        } else {
+                            result = "Error";
+                        }
+                        break;
+                }
+                display.value = result;
+                firstOperand = result;
+                operator = '';
+                secondOperand = '';
+            }
+        }
+    </script>
+</body>
+</html>
